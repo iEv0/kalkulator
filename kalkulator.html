@@ -502,7 +502,7 @@ function goShowResult(){
 function sendToSheets(){
   var d=window._calcData||{};
   var l=window._leadData||{};
-  var URL='https://script.google.com/macros/s/AKfycbzcJwbD6XqYfKK_nB2N1ZBUSE_GcWFcu18oF_E338qCRB3dp1OaAZr90LnRY11i4Dml/exec';
+  var URL='https://script.google.com/macros/s/AKfycbzgV_3ipy7CUBuQOfr2cyy9guJRN7GiPhndDCavqhWHKUvlBTfDFyFegjOhPECGZMmfqQ/exec';
   fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
     body:JSON.stringify({source:'kalkulator',name:l.name,contact:l.contact,
       revenue:d.rev,fop:d.fop||0,materials:d.mat||0,rent:d.rent||0,marketing:d.mkt||0,
