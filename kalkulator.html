@@ -172,10 +172,6 @@ body{
   .bt-head,.bt-row{grid-template-columns:1fr 48px 68px 62px}
 }
 
-/* LEAD FORM */
-.sec-lead{display:none}
-.lead-title{font-family:'Prata',Georgia,serif;font-size:18px;color:#3D0000;line-height:1.4;margin-bottom:8px;text-align:center}
-.lead-sub{font-size:13px;color:#9BA3B5;line-height:1.55;text-align:center;margin-bottom:24px}
 
 /* FOOTER */
 .pg-footer{text-align:center;padding:18px 0 4px}
@@ -238,36 +234,8 @@ body{
         <label>Реклама / маркетинг<span class="opt">необов'язково</span></label>
         <div class="iw"><input type="number" id="mkt" placeholder="залиш 0 якщо не знаєш" inputmode="numeric"><span class="cur">грн</span></div>
       </div>
-      <button class="btn" onclick="goToLead()">Далі →</button>
+      <button class="btn" onclick="calc()">Показати результат →</button>
       <button class="btn-back" onclick="go1()">← Змінити оборот</button>
-      <div class="pg-footer">
-        <a href="https://docs.google.com/document/d/1wwd2imhoLRCEoE7s7H5dZQS_jwqx_HP_NdiccDPbURI/edit?tab=t.0" target="_blank">Політика конфіденційності</a>
-        <span>·</span>
-        <a href="https://docs.google.com/document/d/1akmkH76QPV1oV2q8fft9r3eNwJqDPt1HiRpdWw8ELXY/edit?tab=t.0" target="_blank">Публічна оферта</a>
-      </div>
-    </div>
-
-    <!-- LEAD FORM SCREEN -->
-    <div class="sec-lead" id="sec-lead">
-      <div class="lead-title">Майже готово —<br>куди надіслати результат?</div>
-      <div class="lead-sub">Введи контакт — і побачиш де конкретно у тебе витік</div>
-      <div class="field">
-        <label>Твоє ім'я</label>
-        <div class="iw">
-          <input type="text" id="cName" placeholder="Наприклад, Оля">
-          <span class="cur">👤</span>
-        </div>
-      </div>
-      <div class="field">
-        <label>Telegram або номер телефону</label>
-        <div class="iw">
-          <input type="text" id="cContact" placeholder="@username або +380...">
-          <span class="cur">✉️</span>
-        </div>
-        <div class="fhint">Лера або її команда зв'яжуться для розбору</div>
-      </div>
-      <button class="btn" onclick="goShowResult()">Показати результат →</button>
-      <button class="btn-back" onclick="goBackVitrats()">← Змінити витрати</button>
       <div class="pg-footer">
         <a href="https://docs.google.com/document/d/1wwd2imhoLRCEoE7s7H5dZQS_jwqx_HP_NdiccDPbURI/edit?tab=t.0" target="_blank">Політика конфіденційності</a>
         <span>·</span>
@@ -477,40 +445,8 @@ function calc(){
   setTimeout(function(){r.scrollIntoView({behavior:'smooth',block:'start'});},100);
 }
 
-function goToLead(){
-  window._calcData={rev:REV,fop:v('fop'),mat:v('mat'),rent:v('rent'),mkt:v('mkt')};
-  document.getElementById('sec2').classList.remove('show');
-  document.getElementById('sec-lead').style.display='block';
-  document.getElementById('result').style.display='none';
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function goBackVitrats(){
-  document.getElementById('sec-lead').style.display='none';
-  document.getElementById('sec2').classList.add('show');
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-function goShowResult(){
-  var name=document.getElementById('cName').value.trim();
-  var contact=document.getElementById('cContact').value.trim();
-  if(!name){alert('Введи своє імʼя');return;}
-  if(!contact){alert('Введи Telegram або телефон');return;}
-  window._leadData={name:name,contact:contact};
-  sendToSheets();
-  document.getElementById('sec-lead').style.display='none';
-  calc();
-}
-function sendToSheets(){
-  var d=window._calcData||{};
-  var l=window._leadData||{};
-  var URL='https://script.google.com/macros/s/AKfycbzgV_3ipy7CUBuQOfr2cyy9guJRN7GiPhndDCavqhWHKUvlBTfDFyFegjOhPECGZMmfqQ/exec';
-  fetch(URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain'},
-    body:JSON.stringify({source:'kalkulator',name:l.name,contact:l.contact,
-      revenue:d.rev,fop:d.fop||0,materials:d.mat||0,rent:d.rent||0,marketing:d.mkt||0,
-      timestamp:new Date().toISOString()})
-  }).catch(function(){});
-}
 function goAnketa(){window.location.href='https://iev0.github.io/beauty-mba/anketa.html';}
-function resetAll(){document.getElementById('result').style.display='none';document.getElementById('sec-lead').style.display='none';['cName','cContact'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});['rev','fop','mat','rent','mkt'].forEach(function(id){document.getElementById(id).value='';});go1();window.scrollTo({top:0,behavior:'smooth'});}
+function resetAll(){document.getElementById('result').style.display='none';['rev','fop','mat','rent','mkt'].forEach(function(id){document.getElementById(id).value='';});go1();window.scrollTo({top:0,behavior:'smooth'});}
 </script>
 </body>
 </html>
